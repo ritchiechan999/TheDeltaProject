@@ -82,13 +82,17 @@ public class tdBasicAttack : MonoBehaviour {
         }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            for(int i = 0; AnimNames[ComboNumber].branchAttackName.Length > i; i++)
+            for (int i = 0; AnimNames[ComboNumber].branchAttackName.Length > i; i++)
             {
-                if(Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    Debug.Log(AnimNames[ComboNumber].branchAttackName[0]);
-                }
+
+                Debug.Log(AnimNames[ComboNumber].branchAttackName[0]);
+                _animCtrl.SetTrigger(AnimNames[ComboNumber].branchAttackName[0]);
             }
+            
+        }
+        else
+        {
+            _animCtrl.ResetTrigger(AnimNames[ComboNumber].branchAttackName[0]);
         }
         if (ComboNumber > 0) {
             _timeBeforeReset += Time.deltaTime;
