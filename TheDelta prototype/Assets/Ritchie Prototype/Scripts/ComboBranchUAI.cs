@@ -4,59 +4,40 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class MinionUAI : IBrainUAI
+public class ComboBranchUAI : IBrainUAI
 {
 
-    public float adjustHpPos;
-    public Slider showHealth;
-
-    public float MinionDamage;
-    public bool isSummon;
-    
-    public float IdleTimer;
-    public Transform Targets;
-    
-   
-    public string PlayerName = "player";
-    public string EnemyName = "Enemy";
-    public string Name;
-
-    public bool isDetect;
-    public int Layer => 1 << LayerMask.NameToLayer(Name);
-
-    //health
-    public float Mhealth = 20;
-    public float Health => Mhealth;
-
-    public int DetectionRadius;
-    public Transform TargetMinion;
-    public NavMeshAgent Agent;
-    
-
-    public float AttackingRangeRadius;
-    public int RandomPosRadius;
     public Animator anim;
+    public tdBasicAttack BasicAttack;
     void Start()
     {
         anim = this.GetComponent<Animator>();
-        Agent = this.GetComponent<NavMeshAgent>();
+        BasicAttack = this.GetComponent<tdBasicAttack>();
         RegisterTask(new IdleTask(this));
         RegisterTask(new GotoTask(this));
         RegisterTask(new DetectMinion(this));
         RegisterTask(new Attacking(this));
-        IdleTimer = 3f;
-
-        showHealth.maxValue = Mhealth;
+        
     }
 
 
     void Update()
     {
-        showHealth.transform.position = new Vector3(this.transform.position.x, adjustHpPos, this.transform.position.z);
-        showHealth.value = Mhealth;
-
+        
         UpdateBrain();
 
+        if(BasicAttack.ComboNumber == 1)
+        {
+            Debug.Log("first combo attakc");
+        }
+        else if(BasicAttack.ComboNumber == 2)
+        {
+            Debug.Log("second combo attakc");
+        }
+        else if (BasicAttack.ComboNumber == 3)
+        {
+            Debug.Log("third combo attack");
+        }
     }
     private void OnGUI()
     {
@@ -83,21 +64,10 @@ public class MinionUAI : IBrainUAI
     
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(this.transform.position, DetectionRadius);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(this.transform.position, RandomPosRadius);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(this.transform.position, AttackingRangeRadius);
+  
     }
 
-    public void DoDamage(float damage)
-    {
-        Mhealth -= damage;
-        Debug.Log(Mhealth);
-    }
+   
 
   
 }
@@ -105,10 +75,10 @@ public class MinionUAI : IBrainUAI
 
 public abstract class IBaseTask : ITask
 {
-    public MinionUAI Brain;
+    public ComboBranchUAI Brain;
     public IBaseTask(IBrainUAI machine) : base(machine)
     {
-        Brain = (MinionUAI)machine;
+        Brain = (ComboBranchUAI)machine;
     }
 }
 public class IdleTask : IBaseTask
@@ -117,29 +87,28 @@ public class IdleTask : IBaseTask
     {
 
     }
-    public override ReThinkType ReThinkType => ReThinkType.PerNTime;
+    public override ReThinkType ReThinkType => ReThinkType.PerUpdate;
 
     public override string Name => "Idle";
 
     public override void Analyze()
     {
-        Debug.Log("idle");
-        if(Brain.IdleTimer <= 0)
-            Weight = 0;
-        else
-            Weight = 15f;
+        //Brain.BasicAttack.ComboNumber = 1;
+
+        //Weight = 30;
     }
 
     public override void OnTaskEnter(ITask previoustask)
     {
-        Brain.anim.SetFloat("speed", 0);
+      //UI selection pop out from here maybe?
     }
     public override void OnTaskUpdate()
     {
-        Brain.Agent.SetDestination(Brain.transform.position);
-        Brain.IdleTimer -= Time.deltaTime;
-        
-      
+        Debug.Log("first combo attakc");
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+
+        }
     }
 }
 
@@ -155,20 +124,9 @@ public class GotoTask : IBaseTask
 
     public override void Analyze()
     {
-        Debug.Log("Goto");
+        //Brain.BasicAttack.ComboNumber = 2;
 
-        Vector3 targetpos = Brain.RandomNavmeshLocation(Brain.RandomPosRadius);
-        targetpos.y = Brain.transform.position.y;
-        if (Vector3.Distance(Brain.transform.position, targetpos) < 1f)
-        {
-            Debug.Log("weight1");
-            
-            Weight = 0;
-
-            
-        }
-        else
-            Weight = 10;
+        //Weight = 20;
 
     }
 
@@ -180,7 +138,7 @@ public class GotoTask : IBaseTask
     }
     public override void OnTaskUpdate()
     {
-        
+        Debug.Log("second combo attakc");
 
     }
     public override void OnTaskExit()
@@ -208,12 +166,14 @@ public class DetectMinion : IBaseTask
 
     public override void Analyze()
     {
-        
+        //Brain.BasicAttack.ComboNumber = 3;
+
+        //Weight = 10;
 
     }
     public override void OnTaskUpdate()
     {
-        
+        Debug.Log("third combo attakc");
     }
     public override void OnTaskEnter(ITask previoustask)
     {
@@ -236,30 +196,7 @@ public class Attacking : IBaseTask
 
     public override void Analyze()
     {
-        //Collider[] cols = Physics.OverlapSphere(Brain.transform.position, Brain.AttackingRangeRadius, Brain.Layer);
-
-        //if (cols.Length != 0)
-        //{
-
-
-
-        //    for (int i = 0; i < cols.Length; i++)
-        //    {
-        //        if (cols[i] == Brain.gameObject)
-
-
-        //            continue;
-
-        //        Brain.TargetMinion = cols[i].transform;
-        //        Weight = 40f;
-
-        //    }
-        //}
-        //else
-        //{
-        //    Weight = 0f;
-        //}
-
+        
     }
     public override void OnTaskEnter(ITask previoustask)
     {
