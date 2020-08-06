@@ -7,6 +7,7 @@ public class tdBasicAttack : MonoBehaviour {
     [Header("Combos")]
     public string[] ComboList;
     public int ComboNumber; /*{ private set; get; }*/
+    int _comboNumberArray;
     public bool CanAttack;
     int _maxCombo = 3;
     public float ResetTime;
@@ -40,6 +41,7 @@ public class tdBasicAttack : MonoBehaviour {
         BasicAttack();
 
         //need find a better way for this
+        //get mouse click as last pressed button
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             keyPressed = KeyCode.Mouse0;
@@ -48,51 +50,58 @@ public class tdBasicAttack : MonoBehaviour {
         {
             keyPressed = KeyCode.Mouse0;
         }
-        
+
+
+
+        Debug.Log(_comboNumberArray);
 
     }
     void OnGUI()
     {
+        //this is to find ways to prevent mouse input spam;
+        //get last key pressed on the keyboard
         lastKeyPressed = Event.current;
         if (lastKeyPressed.isKey)
         {
             keyPressed = lastKeyPressed.keyCode;
         }
         
-        //if (lastKeyPressed.isKey)
-        //{
-        //    //lastKeyPressed.keyCode = keyPressed;
-        //    Debug.Log("Detected key code: " + lastKeyPressed.keyCode);
-        //}
+        
     }
     void BasicAttack() {
+
+        if (ComboNumber > 0)
+        {
+            _comboNumberArray = ComboNumber - 1;
+        }
+
         if (Input.GetButtonDown("Fire1") && ComboNumber < _maxCombo 
             && _movement.PlayerState != PlayerState.Jumping) 
         {
             //subject to change
-            
 
 
+            ComboNumber++;
             _movement.PlayerState = PlayerState.Attacking;
             //_animCtrl.SetTrigger(ComboList[ComboNumber]);
-            _animCtrl.SetTrigger(AnimNames[ComboNumber].NormalAttackName);
+            _animCtrl.SetTrigger(AnimNames[_comboNumberArray].NormalAttackName);
             
             _timeBeforeReset = 0;
             
         }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            for (int i = 0; AnimNames[ComboNumber].branchAttackName.Length > i; i++)
+            for (int i = 0; AnimNames[_comboNumberArray].branchAttackName.Length > i; i++)
             {
 
-                Debug.Log(AnimNames[ComboNumber].branchAttackName[0]);
-                _animCtrl.SetTrigger(AnimNames[ComboNumber].branchAttackName[0]);
+                Debug.Log(AnimNames[_comboNumberArray].branchAttackName[0]);
+                _animCtrl.SetTrigger(AnimNames[_comboNumberArray].branchAttackName[0]);
             }
             
         }
         else
         {
-            _animCtrl.ResetTrigger(AnimNames[ComboNumber].branchAttackName[0]);
+            _animCtrl.ResetTrigger(AnimNames[_comboNumberArray].branchAttackName[0]);
         }
         if (ComboNumber > 0) {
             _timeBeforeReset += Time.deltaTime;
@@ -108,13 +117,17 @@ public class tdBasicAttack : MonoBehaviour {
         ResetTime = ComboNumber == _maxCombo ? 2f : 1f;
     }
 
+
+    //at the end of the animation if the last button press is mouse it will ++ , else if " 1 " , it will go to branch skill
+
     public void ComboAttack()
     {
+        
         if(keyPressed == KeyCode.Mouse0)
         {
-            ComboNumber++;
+            //ComboNumber++;
         }
-
+       
         if(keyPressed == KeyCode.Alpha1)
         {
 
