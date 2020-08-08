@@ -2411,33 +2411,6 @@ Transform:
   m_Father: {fileID: 1224763861471079617}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5334239724780385459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5767840874486911024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d11d68d8cab15c6439d24fd6eee892a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RigidBody: {fileID: 0}
-  MinMaxMoveSpeed: {x: 7, y: 15}
-  MoveSmoothSpeed: 0.15
-  IsFacingRight: 1
-  RotateSmoothSpeed: 0.15
-  JumpSpeed: 15
-  JumpDelay: 0.25
-  GroundLength: 0.05
-  ColliderOffset: {x: 0, y: 0, z: 0}
-  GroundLayerName: ground
-  PlayerState: 0
-  CustomGravity: 1
-  FallMultiplier: 4
-  Drag: 4
-  Velocity: {x: 0, y: 0, z: 0}
 --- !u!4 &5472103042614932624
 Transform:
   m_ObjectHideFlags: 0
@@ -2574,8 +2547,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7372433751417266723}
-  - component: {fileID: 5334239724780385459}
-  - component: {fileID: 8301164692908332929}
+  - component: {fileID: 5767840874486911026}
+  - component: {fileID: 5767840874486911025}
   - component: {fileID: 6242049688701440162}
   - component: {fileID: 8565141171411301758}
   - component: {fileID: 7998121540245956289}
@@ -2586,6 +2559,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5767840874486911025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767840874486911024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25f15e9d1e139d4a8a73a2e6c36f0f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5767840874486911026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767840874486911024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945f7ac8f1cf87642818d9fdcd6e6266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntityStates: 01000000
+  FirstEntityState: 1
+  RigidBody: {fileID: 7998121540245956289}
+  CurrentSpeed: 7
 --- !u!4 &5810466303409767336
 Transform:
   m_ObjectHideFlags: 0
@@ -3218,44 +3219,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8301164692908332929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5767840874486911024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a05e10c09d05ba742a3fff4f83264fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AnimCtrl: {fileID: 6242049688701440162}
-  SprintDownSpeed: 0.1
-  SprintTimeTreshold: 1
-  IsOnGround: 1
-  AtkFx:
-  - Name: combo1
-    Prefab: {fileID: 2922627408306166871, guid: 7ce66b75d6f36eb40b136ff18ff1ec21,
-      type: 3}
-    PosRightOffset: {x: 0, y: 0.7, z: 0}
-    PosLeftOffset: {x: 0, y: 0.7, z: 0}
-    RotRightOffset: {x: 0, y: -90, z: 0}
-    RotLeftOffset: {x: 0, y: 90, z: 0}
-  - Name: combo2
-    Prefab: {fileID: 4550461207172472076, guid: 9485b10fef57b034da3e9dd8b1acd467,
-      type: 3}
-    PosRightOffset: {x: 0, y: 0, z: 0}
-    PosLeftOffset: {x: 0, y: 0, z: 0}
-    RotRightOffset: {x: 0, y: 0, z: 0}
-    RotLeftOffset: {x: 0, y: 0, z: 0}
-  - Name: combo3
-    Prefab: {fileID: 4888443075479945895, guid: 150159bd765f9944ead3dde7cc7e06ad,
-      type: 3}
-    PosRightOffset: {x: -3, y: 0, z: 0}
-    PosLeftOffset: {x: 3, y: 0, z: 0}
-    RotRightOffset: {x: 0, y: 0, z: 0}
-    RotLeftOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &8428554465105383457
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,9 +8,8 @@ public class tdPlayerNavigationState : tdIBaseState<tdBaseEntity> {
     public override void OnReceiveMessage(tdMessageType msgType, object[] args) {
         switch (msgType) {
             case tdMessageType.Move:
-
-
-
+                float horizontal = (float)args[0];
+                EntityBrain.RigidBody.velocity = new Vector2(horizontal * EntityBrain.CurrentSpeed, EntityBrain.RigidBody.velocity.y);
                 break;
             case tdMessageType.Jump:
                 break;

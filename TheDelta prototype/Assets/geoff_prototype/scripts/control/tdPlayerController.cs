@@ -11,9 +11,9 @@ public class tdPlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        float hAxis = Input.GetAxisRaw("horizontal");
+        float hAxis = Input.GetAxis("Horizontal");
         if (hAxis != 0) {
-            _tdBaseEntity.SendMessageToBrain(tdMessageType.Move);
+            _tdBaseEntity.SendMessageToBrain(tdMessageType.Move, hAxis);
         }
     }
 }

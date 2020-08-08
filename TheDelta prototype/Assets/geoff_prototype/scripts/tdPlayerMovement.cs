@@ -88,6 +88,7 @@ public class tdPlayerMovement : MonoBehaviour {
 
         ModifyPhysics();
     }
+
     void ModifyPhysics() {
         if (OnGround) {
             RigidBody.drag = Mathf.Abs(_inputDir.x) < 0.4f ? Drag : 0;
