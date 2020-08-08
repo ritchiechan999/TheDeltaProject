@@ -41,7 +41,7 @@ public abstract class tdIBrainFSM : MonoBehaviour {
 
     /// <summary>
     /// Will be used on the entity controller to separate inputs and behaviour.
-    /// Can also be used as a reaction for the ais
+    /// Can also be used as a reaction for AI
     /// </summary>
     /// <param name="msgtype">message type</param>
     /// <param name="args">anything to pass through</param>
