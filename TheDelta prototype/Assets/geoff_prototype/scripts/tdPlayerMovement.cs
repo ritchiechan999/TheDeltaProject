@@ -102,6 +102,7 @@ public class tdPlayerMovement : MonoBehaviour {
             } else if (rbVelocityY > 0 && !Input.GetButton("Jump")) {
                 newGravity *= FallMultiplier / 2;
             }
+            //newtons 2nd law of motion lol
             RigidBody.AddForce(newGravity, ForceMode.Acceleration);
         }
     }
