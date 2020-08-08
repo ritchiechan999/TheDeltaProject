@@ -9,9 +9,12 @@ public class tdPlayerNavigationState : tdIBaseState<tdBaseEntity> {
         switch (msgType) {
             case tdMessageType.Move:
                 float horizontal = (float)args[0];
-                EntityBrain.RigidBody.velocity = new Vector2(horizontal * EntityBrain.CurrentSpeed, EntityBrain.RigidBody.velocity.y);
+                Entity.RigidBody.velocity = new Vector2(horizontal * Entity.CurrentSpeed, Entity.RigidBody.velocity.y);
                 break;
             case tdMessageType.Jump:
+                Entity.Velocity = new Vector2(Entity.Velocity.x, 0);
+                Entity.RigidBody.AddForce(Vector2.up * Entity.JumpSpeed, ForceMode.Impulse);
+                Entity.JumpTimer = 0;
                 break;
             case tdMessageType.Attack:
                 break;
@@ -29,8 +32,5 @@ public class tdPlayerNavigationState : tdIBaseState<tdBaseEntity> {
     }
 
     public override void OnStateUpdate() {
-
-
-
     }
 }

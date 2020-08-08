@@ -62,14 +62,14 @@ public abstract class tdIState {
 }
 
 public abstract class tdIBaseState<T> : tdIState where T : tdIBrainFSM {
-    protected T EntityBrain;
+    protected T Entity;
     protected int InitConstruct;
     protected tdIBaseState(T brain, int initConstruct) : base(brain) {
-        EntityBrain = brain;
+        Entity = brain;
         InitConstruct = initConstruct; //to resolved default constructor issues
     }
     protected tdIBaseState(T brain) : base(brain) {
-        EntityBrain = brain;
+        Entity = brain;
     }
 }
 

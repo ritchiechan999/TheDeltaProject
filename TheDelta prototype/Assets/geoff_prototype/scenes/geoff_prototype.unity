@@ -2587,6 +2587,14 @@ MonoBehaviour:
   FirstEntityState: 1
   RigidBody: {fileID: 7998121540245956289}
   CurrentSpeed: 7
+  JumpSpeed: 15
+  JumpDelay: 0.25
+  JumpTimer: 0
+  GroundLength: 0.2
+  ColliderOffset: {x: 0, y: 0, z: 0}
+  OnGround: 0
+  GroundLayerName: ground
+  Velocity: {x: 0, y: 0, z: 0}
 --- !u!4 &5810466303409767336
 Transform:
   m_ObjectHideFlags: 0

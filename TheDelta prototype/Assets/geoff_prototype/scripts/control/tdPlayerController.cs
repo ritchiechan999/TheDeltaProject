@@ -15,5 +15,11 @@ public class tdPlayerController : MonoBehaviour {
         if (hAxis != 0) {
             _tdBaseEntity.SendMessageToBrain(tdMessageType.Move, hAxis);
         }
+
+        _tdBaseEntity.OnGround = Physics.Raycast(transform.position + _tdBaseEntity.ColliderOffset, 
+                                                    Vector2.down, _tdBaseEntity.GroundLength, _tdBaseEntity.GroundLayer);
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            _tdBaseEntity.JumpTimer = Time.time + _tdBaseEntity.JumpDelay;
+        }
     }
 }
