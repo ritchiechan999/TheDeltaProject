@@ -9,16 +9,23 @@ public class tdPlayerNavigationState : tdIBaseState<tdBaseEntity> {
         switch (msgType) {
             case tdMessageType.Move:
                 float horizontal = (float)args[0];
-                Entity.RigidBody.velocity = new Vector2(horizontal * Entity.CurrentSpeed, Entity.RigidBody.velocity.y);
+                Entity.RgdBdy.velocity = new Vector2(horizontal * Entity.CurrentSpeed, Entity.RgdBdy.velocity.y);
+                Entity.RotateEntity(horizontal);
+                if (Entity.OnGround) {
+                    MovementAnimation(horizontal);
+                }
                 break;
             case tdMessageType.Jump:
                 Entity.Velocity = new Vector2(Entity.Velocity.x, 0);
-                Entity.RigidBody.AddForce(Vector2.up * Entity.JumpSpeed, ForceMode.Impulse);
+                Entity.RgdBdy.AddForce(Vector2.up * Entity.JumpSpeed, ForceMode.Impulse);
                 Entity.JumpTimer = 0;
+                Entity.AnimCtrl.SetTrigger("jump");
                 break;
             case tdMessageType.Attack:
+                //go to attack state
                 break;
             case tdMessageType.Flinch:
+                //chance to change state or idk to be discussed
                 break;
             default:
                 break;
@@ -32,5 +39,13 @@ public class tdPlayerNavigationState : tdIBaseState<tdBaseEntity> {
     }
 
     public override void OnStateUpdate() {
+        Entity.AnimCtrl.SetFloat("yVelocity", Entity.RgdBdy.velocity.y);
+        Entity.AnimCtrl.SetBool("on_ground", Entity.OnGround);
+    }
+
+    //animation side
+    void MovementAnimation(float xDir) {
+        float moveDir = Mathf.Abs(xDir);
+        Entity.AnimCtrl.SetFloat("nav_speed", moveDir);
     }
 }

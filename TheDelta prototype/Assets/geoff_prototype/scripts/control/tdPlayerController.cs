@@ -12,11 +12,9 @@ public class tdPlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         float hAxis = Input.GetAxis("Horizontal");
-        if (hAxis != 0) {
-            _tdBaseEntity.SendMessageToBrain(tdMessageType.Move, hAxis);
-        }
+        _tdBaseEntity.SendMessageToBrain(tdMessageType.Move, hAxis);
 
-        _tdBaseEntity.OnGround = Physics.Raycast(transform.position + _tdBaseEntity.ColliderOffset, 
+        _tdBaseEntity.OnGround = Physics.Raycast(transform.position + _tdBaseEntity.ColliderOffset,
                                                     Vector2.down, _tdBaseEntity.GroundLength, _tdBaseEntity.GroundLayer);
         if (Input.GetKeyDown(KeyCode.Space)) {
             _tdBaseEntity.JumpTimer = Time.time + _tdBaseEntity.JumpDelay;

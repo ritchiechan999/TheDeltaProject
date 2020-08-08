@@ -7,16 +7,23 @@ public class tdBaseEntity : tdIBrainFSM {
     [Header("Entity States")]
     public tdEntityStates[] EntityStates;
     public tdEntityStates FirstEntityState;
-    [Header("Components")]
-    public Rigidbody RigidBody;
 
-    [Header("Horizontal Movement + Rotation")]
+    [Header("Components")]
+    public Rigidbody RgdBdy;
+    public Animator AnimCtrl;
+
+    [Header("Horizontal Movement")]
     public float CurrentSpeed = 7f;
 
     [Header("Vertical Movement")]
     public float JumpSpeed = 15f;
     public float JumpDelay = 0.25f;
     public float JumpTimer;
+
+    [Header("Rotation")]
+    public bool IsFacingRight = true;
+    Quaternion _lastRotation;
+    public float RotateSmoothSpeed = 0.15f;
 
     [Header("Collision")]
     public float GroundLength = 0.6f;
@@ -37,6 +44,9 @@ public class tdBaseEntity : tdIBrainFSM {
     // Start is called before the first frame update
     void Start() {
         InitializeFSM();
+
+        _lastRotation = new Quaternion(0, 0.7f, 0, 0.7f);
+        RgdBdy.useGravity = false;
     }
 
     void InitializeFSM() {
@@ -53,6 +63,19 @@ public class tdBaseEntity : tdIBrainFSM {
         ChangeState(cs);
     }
 
+    //test experimental
+    public void RotateEntity(float xDir) {
+        if (xDir == 0) {
+            this.transform.rotation = _lastRotation;
+            return;
+        }
+        Quaternion rotation = Quaternion.Slerp(this.transform.rotation,
+                                Quaternion.LookRotation(new Vector3(xDir, 0,0)), RotateSmoothSpeed);
+        transform.rotation = rotation;
+        _lastRotation = rotation;
+        IsFacingRight = transform.rotation.y > 0;
+    }
+
     // Update is called once per frame
     void Update() {
         UpdateBrain();
@@ -64,7 +87,7 @@ public class tdBaseEntity : tdIBrainFSM {
             SendMessageToBrain(tdMessageType.Jump);
         }
 
-        tdPhysicsData.ModifyPhysics(OnGround, RigidBody, CustomGravity, Drag, FallMultiplier, Velocity.x);
+        tdPhysicsData.ModifyPhysics(OnGround, RgdBdy, CustomGravity, Drag, FallMultiplier, Velocity.x);
     }
 
     private void OnDrawGizmos() {
