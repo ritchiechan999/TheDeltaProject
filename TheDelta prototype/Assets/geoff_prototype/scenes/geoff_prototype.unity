@@ -2549,6 +2549,7 @@ GameObject:
   - component: {fileID: 7372433751417266723}
   - component: {fileID: 5767840874486911026}
   - component: {fileID: 5767840874486911025}
+  - component: {fileID: 5767840874486911027}
   - component: {fileID: 6242049688701440162}
   - component: {fileID: 8565141171411301758}
   - component: {fileID: 7998121540245956289}
@@ -2571,6 +2572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25f15e9d1e139d4a8a73a2e6c36f0f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LightKey: 49
+  HeavyKey: 50
+  MagicKey: 51
 --- !u!114 &5767840874486911026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2602,6 +2606,62 @@ MonoBehaviour:
   FallMultiplier: 5
   Drag: 4
   Velocity: {x: 0, y: 0, z: 0}
+--- !u!114 &5767840874486911027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767840874486911024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cea1f527a1f255543af7c7ea2b5fe76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeavyAttack:
+    Name: heavy
+    LengthDuration: 0.4
+    AnimState: 2
+  LightAttack:
+    Name: light
+    LengthDuration: 0.2
+    AnimState: 1
+  MagicAttack:
+    Name: magic
+    LengthDuration: 0.4
+    AnimState: 3
+  Combos:
+  - Name: light+heavy
+    Inputs:
+    - Type: 1
+    - Type: 0
+    ComboAttack:
+      Name: light+heavy atk
+      LengthDuration: 1
+      AnimState: 100
+    DoComboAtk: 0
+  - Name: light+magic+light
+    Inputs:
+    - Type: 1
+    - Type: 2
+    - Type: 1
+    ComboAttack:
+      Name: light+magic+light atk
+      LengthDuration: 1
+      AnimState: 101
+    DoComboAtk: 0
+  - Name: light+magic+heavy+light
+    Inputs:
+    - Type: 1
+    - Type: 2
+    - Type: 0
+    - Type: 1
+    ComboAttack:
+      Name: light+magic+heavy+light atk
+      LengthDuration: 1
+      AnimState: 102
+    DoComboAtk: 0
+  ComboLeeway: 1
 --- !u!4 &5810466303409767336
 Transform:
   m_ObjectHideFlags: 0
