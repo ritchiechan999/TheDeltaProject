@@ -2,24 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class tdPlayerNavigationState : tdIBaseState<tdBaseEntity> {
-    public tdPlayerNavigationState(tdBaseEntity brain, int initConstruct) : base(brain) { }
+public class tdNavigationState : tdIBaseState<tdBaseEntity> {
+    public tdNavigationState(tdBaseEntity brain, int initConstruct) : base(brain) { }
 
     public override void OnReceiveMessage(tdMessageType msgType, object[] args) {
         switch (msgType) {
             case tdMessageType.Move:
                 float horizontal = (float)args[0];
-                Entity.RgdBdy.velocity = new Vector2(horizontal * Entity.CurrentSpeed, Entity.RgdBdy.velocity.y);
+                MoveEntity(horizontal);
                 Entity.RotateEntity(horizontal);
                 if (Entity.OnGround) {
                     MovementAnimation(horizontal);
                 }
                 break;
             case tdMessageType.Jump:
+                Entity.AnimCtrl.SetTrigger("jump");
+                Entity.AnimCtrl.SetFloat("nav_speed", 0);
                 Entity.Velocity = new Vector2(Entity.Velocity.x, 0);
                 Entity.RgdBdy.AddForce(Vector2.up * Entity.JumpSpeed, ForceMode.Impulse);
                 Entity.JumpTimer = 0;
-                Entity.AnimCtrl.SetTrigger("jump");
                 break;
             case tdMessageType.Attack:
                 //go to attack state
@@ -43,9 +44,38 @@ public class tdPlayerNavigationState : tdIBaseState<tdBaseEntity> {
         Entity.AnimCtrl.SetBool("on_ground", Entity.OnGround);
     }
 
-    //animation side
+    public float SprintDownSpeed = 0.1f;
+    float _sprintSpeed;
+    public float SprintTimeTreshold = 1f;
+    float _sprintTime;
+    bool _isSprinting;
+
     void MovementAnimation(float xDir) {
-        float moveDir = Mathf.Abs(xDir);
-        Entity.AnimCtrl.SetFloat("nav_speed", moveDir);
+        float moveSpeed = Mathf.Abs(xDir);
+        float maxSpeed = Entity.AnimCtrl.GetFloat("nav_speed");
+        if (maxSpeed >= 1 && moveSpeed == 1) {
+            if (_sprintTime < SprintTimeTreshold) {
+                _sprintTime += Time.deltaTime;
+            } else {
+                _isSprinting = true;
+                _sprintSpeed += Time.deltaTime;
+            }
+        } else {
+            _isSprinting = false;
+            _sprintSpeed -= SprintDownSpeed / Time.deltaTime;
+            _sprintTime = 0;
+        }
+        _sprintTime = Mathf.Clamp(_sprintTime, 0, SprintTimeTreshold);
+        _sprintSpeed = Mathf.Clamp01(_sprintSpeed);
+        moveSpeed += _sprintSpeed;
+        Entity.AnimCtrl.SetFloat("nav_speed", moveSpeed);
+    }
+
+    //TODO decide later where to put below function
+    void MoveEntity(float xDir) {
+        float sprintSpeed = Mathf.Lerp(Entity.MinMaxMoveSpeed.y, Entity.MinMaxMoveSpeed.x, Entity.MoveSmoothSpeed);
+        float runSpeed = Mathf.Lerp(Entity.MinMaxMoveSpeed.x, Entity.MinMaxMoveSpeed.y, Entity.MoveSmoothSpeed);
+        Entity.CurrentSpeed = _isSprinting && Entity.OnGround ? sprintSpeed : runSpeed;
+        Entity.RgdBdy.velocity = new Vector2(xDir * Entity.CurrentSpeed, Entity.RgdBdy.velocity.y);
     }
 }

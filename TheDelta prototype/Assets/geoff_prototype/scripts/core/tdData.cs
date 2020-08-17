@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class tdPhysicsData 
-{
+public static class tdData {
+    const string _groundLayerName = "ground";
+    public static int GroundLayer => 1 << LayerMask.NameToLayer(_groundLayerName);
+}
+
+public static class tdPhysicsData {
     public const float GlobalGravity = -9.8f;
     static float _gravityScale;
 
-    public static void ModifyPhysics(bool onGround, Rigidbody rb, float customGravity, 
+    public static void ModifyPhysics(bool onGround, Rigidbody rb, float customGravity,
                                         float dragScale, float fallMultiplier, float horizontalMovement) {
         if (onGround) {
             rb.drag = Mathf.Abs(horizontalMovement) < 0.4f ? dragScale : 0;

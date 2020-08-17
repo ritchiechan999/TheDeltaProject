@@ -13,6 +13,8 @@ public class tdBaseEntity : tdIBrainFSM {
     public Animator AnimCtrl;
 
     [Header("Horizontal Movement")]
+    public Vector2 MinMaxMoveSpeed = new Vector2(7f, 15f);
+    public float MoveSmoothSpeed = 0.15f;
     public float CurrentSpeed = 7f;
 
     [Header("Vertical Movement")]
@@ -29,8 +31,6 @@ public class tdBaseEntity : tdIBrainFSM {
     public float GroundLength = 0.6f;
     public Vector3 ColliderOffset;
     public bool OnGround;
-    public string GroundLayerName = "ground";
-    public int GroundLayer => 1 << LayerMask.NameToLayer(GroundLayerName);
 
     [Header("Physics")]
     [Range(1, 10)]
@@ -63,14 +63,13 @@ public class tdBaseEntity : tdIBrainFSM {
         ChangeState(cs);
     }
 
-    //test experimental
     public void RotateEntity(float xDir) {
         if (xDir == 0) {
             this.transform.rotation = _lastRotation;
             return;
         }
         Quaternion rotation = Quaternion.Slerp(this.transform.rotation,
-                                Quaternion.LookRotation(new Vector3(xDir, 0,0)), RotateSmoothSpeed);
+                                Quaternion.LookRotation(new Vector3(xDir, 0, 0)), RotateSmoothSpeed);
         transform.rotation = rotation;
         _lastRotation = rotation;
         IsFacingRight = transform.rotation.y > 0;
@@ -83,7 +82,6 @@ public class tdBaseEntity : tdIBrainFSM {
 
     private void FixedUpdate() {
         if (JumpTimer > Time.time && OnGround) {
-            // _animCtrl.JumpTrigger();
             SendMessageToBrain(tdMessageType.Jump);
         }
 
@@ -99,5 +97,7 @@ public class tdBaseEntity : tdIBrainFSM {
 
 public enum tdEntityStates {
     Unassigned,
-    PlayerNavigation,
+    Navigation,
+    Attack,
+
 }

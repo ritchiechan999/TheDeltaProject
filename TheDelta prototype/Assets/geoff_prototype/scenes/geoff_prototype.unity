@@ -2587,6 +2587,8 @@ MonoBehaviour:
   FirstEntityState: 1
   RgdBdy: {fileID: 7998121540245956289}
   AnimCtrl: {fileID: 6242049688701440162}
+  MinMaxMoveSpeed: {x: 7, y: 15}
+  MoveSmoothSpeed: 0.15
   CurrentSpeed: 7
   JumpSpeed: 15
   JumpDelay: 0.25
@@ -2596,7 +2598,6 @@ MonoBehaviour:
   GroundLength: 0.2
   ColliderOffset: {x: 0, y: 0, z: 0}
   OnGround: 0
-  GroundLayerName: ground
   CustomGravity: 1
   FallMultiplier: 5
   Drag: 4
@@ -2748,7 +2749,7 @@ Animator:
   m_GameObject: {fileID: 5767840874486911024}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 441e0be1d486caf4cba0c8dabe84846e, type: 3}
-  m_Controller: {fileID: 9100000, guid: dd74da8a71e27fe4ba5b0152f16b3615, type: 2}
+  m_Controller: {fileID: 9100000, guid: d3847a3eefda42548902a9a55201b766, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
