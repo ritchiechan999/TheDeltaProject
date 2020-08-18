@@ -5,8 +5,8 @@ using System;
 
 public class tdBaseEntity : tdIBrainFSM {
     [Header("Entity States")]
-    public tdEntityStates[] EntityStates;
-    public tdEntityStates FirstEntityState;
+    public tdEntityState[] EntityStates;
+    public tdEntityState FirstEntityState;
 
     [Header("Components")]
     public Rigidbody RgdBdy;
@@ -50,7 +50,7 @@ public class tdBaseEntity : tdIBrainFSM {
     }
 
     void InitializeFSM() {
-        foreach (tdEntityStates s in EntityStates) {
+        foreach (tdEntityState s in EntityStates) {
             string strType = $"td{s}State";
             Type t = Type.GetType(strType);
             if (t == null)
@@ -95,7 +95,7 @@ public class tdBaseEntity : tdIBrainFSM {
     }
 }
 
-public enum tdEntityStates {
+public enum tdEntityState {
     Unassigned,
     Navigation,
     Attack,

@@ -24,6 +24,7 @@ public class tdNavigationState : tdIBaseState<tdBaseEntity> {
                 break;
             case tdMessageType.Attack:
                 //go to attack state
+                Entity.ChangeState(typeof(tdAttackState), args);
                 break;
             case tdMessageType.Flinch:
                 //chance to change state or idk to be discussed
@@ -77,5 +78,33 @@ public class tdNavigationState : tdIBaseState<tdBaseEntity> {
         float runSpeed = Mathf.Lerp(Entity.MinMaxMoveSpeed.x, Entity.MinMaxMoveSpeed.y, Entity.MoveSmoothSpeed);
         Entity.CurrentSpeed = _isSprinting && Entity.OnGround ? sprintSpeed : runSpeed;
         Entity.RgdBdy.velocity = new Vector2(xDir * Entity.CurrentSpeed, Entity.RgdBdy.velocity.y);
+    }
+}
+
+public class tdAttackState : tdIBaseState<tdBaseEntity> {
+    public tdAttackState(tdBaseEntity brain, int initConstruct) : base(brain) { }
+    public override void OnReceiveMessage(tdMessageType msgType, object[] args) {
+        switch (msgType) {
+            //TODO continuous combo
+            case tdMessageType.Attack:
+                Attack currentAtk = (Attack)args[0];
+                Entity.AnimCtrl.SetInteger("anim_state", (int)currentAtk.AnimState);
+                break;
+            case tdMessageType.Flinch:
+                break;
+        }
+    }
+
+    public override void OnStateEnter(object[] args) {
+        if (args != null) {
+            Attack currentAtk = (Attack)args[0];
+            Entity.AnimCtrl.SetInteger("anim_state", (int)currentAtk.AnimState);
+        }
+    }
+
+    public override void OnStateExit(object[] args) {
+    }
+
+    public override void OnStateUpdate() {
     }
 }

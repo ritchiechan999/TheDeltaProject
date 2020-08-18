@@ -26,7 +26,6 @@ public class tdPlayerController : MonoBehaviour {
             _tdBaseEntity.JumpTimer = Time.time + _tdBaseEntity.JumpDelay;
         }
 
-        //TODO inputs for combo
         _currentComboInput = null;
 
         if (Input.GetKeyUp(HeavyKey))

@@ -2587,7 +2587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945f7ac8f1cf87642818d9fdcd6e6266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityStates: 01000000
+  EntityStates: 0100000002000000
   FirstEntityState: 1
   RgdBdy: {fileID: 7998121540245956289}
   AnimCtrl: {fileID: 6242049688701440162}

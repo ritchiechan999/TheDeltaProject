@@ -7,7 +7,7 @@ public class tdComboHandler : MonoBehaviour {
     [Header("Components and stuff")]
     Animator _anim;
     tdPlayerController _playerController;
-
+    tdBaseEntity _entity;
 
     [Header("Attacks")]
     public Attack HeavyAttack;
@@ -28,6 +28,7 @@ public class tdComboHandler : MonoBehaviour {
     void Start() {
         _anim = this.GetComponent<Animator>();
         _playerController = this.GetComponent<tdPlayerController>();
+        _entity = this.GetComponent<tdBaseEntity>();
 
         PrimeCombos();
     }
@@ -49,7 +50,7 @@ public class tdComboHandler : MonoBehaviour {
     }
 
     void ComboLogic() {
-        //if atk is happenning
+        //when final atk is happenning
         if (_currentAttack != null) {
             if (_attackTimer > 0)
                 _attackTimer -= Time.deltaTime;
@@ -63,7 +64,7 @@ public class tdComboHandler : MonoBehaviour {
             _leeway += Time.deltaTime;
             if (_leeway >= ComboLeeway) {
                 if (_lastInput != null) {
-                   // FinalAttack(GetAttackFromType(_lastInput.Type));
+                    // FinalAttack(GetAttackFromType(_lastInput.Type));
                     _lastInput = null;
                 }
                 ResetCombos();
@@ -87,7 +88,7 @@ public class tdComboHandler : MonoBehaviour {
         for (int i = 0; i < _currentCombos.Count; i++) {
             Combo c = Combos[_currentCombos[i]];
             if (c.ContinueCombo(input) && !c.DoComboAtk) {
-                //need to fix later
+                //TODO send message to brain
                 ChainAttack(GetAttackFromType(_lastInput.Type));
                 _leeway = 0;
             } else {
@@ -105,7 +106,7 @@ public class tdComboHandler : MonoBehaviour {
             if (_currentCombos.Contains(i))
                 continue;
             if (Combos[i].ContinueCombo(input)) {
-                //need to change later
+                //TODO send message to entity brain
                 ChainAttack(GetAttackFromType(_lastInput.Type));
                 _currentCombos.Add(i);
                 _leeway = 0;
@@ -119,6 +120,7 @@ public class tdComboHandler : MonoBehaviour {
 
         //get the combo
         if (_currentCombos.Count <= 0) {
+            //TODO send message to brain
             FinalAttack(GetAttackFromType(input.Type));
         }
     }
@@ -138,13 +140,15 @@ public class tdComboHandler : MonoBehaviour {
         _currentAttack = atk;
         _attackTimer = atk.LengthDuration;
         Debug.Log(_currentAttack.Name + " ");// + _currentAttack.LengthDuration);
-        _anim.SetInteger("anim_state", (int)atk.AnimState);
+        //_anim.SetInteger("anim_state", (int)atk.AnimState);
+        _entity.SendMessageToBrain(tdMessageType.Attack, atk);
     }
 
     //do something regards to this haha
     void ChainAttack(Attack chainAtk) {
         Debug.Log(chainAtk.Name);
-        _anim.SetInteger("anim_state", (int)chainAtk.AnimState);
+        //_anim.SetInteger("anim_state", (int)chainAtk.AnimState);
+        _entity.SendMessageToBrain(tdMessageType.Attack, chainAtk);
     }
 
     Attack GetAttackFromType(AttackType type) {
