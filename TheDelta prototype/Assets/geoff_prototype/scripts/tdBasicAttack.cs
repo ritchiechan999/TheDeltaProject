@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
+using Unity.Profiling;
 public class tdBasicAttack : MonoBehaviour {
     private Animator _animCtrl;
     [Header("Combos")]
@@ -23,8 +24,10 @@ public class tdBasicAttack : MonoBehaviour {
     public KeyCode keyPressed;
 
     public AnimComboStrings[] AnimNames;
-
     
+    (string, bool) myTuple = ("hellow world", true);
+    (PlayerState, PlayerState) combos = (PlayerState.LightCombo, PlayerState.HeavyCombo);
+
     // Start is called before the first frame update
     void Start() {
         _animCtrl = GetComponent<Animator>();
@@ -39,7 +42,7 @@ public class tdBasicAttack : MonoBehaviour {
     void Update() {
         //subject to change
         BasicAttack();
-
+        //BasicAttackTwo();
         //need find a better way for this
         //get mouse click as last pressed button
         if (Input.GetKeyUp(KeyCode.Mouse0))
@@ -52,8 +55,12 @@ public class tdBasicAttack : MonoBehaviour {
         }
 
 
+        
 
-        Debug.Log(_comboNumberArray);
+        if(myTuple.Item2)
+        {
+            print(myTuple.Item1);
+        }
 
     }
     void OnGUI()
@@ -67,6 +74,17 @@ public class tdBasicAttack : MonoBehaviour {
         }
         
         
+    }
+    void BasicAttackTwo()
+    {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            _animCtrl.SetTrigger("lightAttack");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _animCtrl.SetTrigger("heavyAttack");
+        }
     }
     void BasicAttack() {
 

@@ -146,4 +146,6 @@ public enum PlayerState {
     Jumping,
     Attacking,
     SkillCasting,
+    LightCombo,
+    HeavyCombo,
 }
