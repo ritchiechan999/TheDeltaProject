@@ -2549,6 +2549,7 @@ GameObject:
   - component: {fileID: 7372433751417266723}
   - component: {fileID: 5767840874486911026}
   - component: {fileID: 5767840874486911025}
+  - component: {fileID: 5767840874486911027}
   - component: {fileID: 6242049688701440162}
   - component: {fileID: 8565141171411301758}
   - component: {fileID: 7998121540245956289}
@@ -2571,6 +2572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25f15e9d1e139d4a8a73a2e6c36f0f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LightKey: 49
+  HeavyKey: 50
+  MagicKey: 51
 --- !u!114 &5767840874486911026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2583,24 +2587,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945f7ac8f1cf87642818d9fdcd6e6266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityStates: 01000000
+  EntityStates: 0100000002000000
   FirstEntityState: 1
   RgdBdy: {fileID: 7998121540245956289}
   AnimCtrl: {fileID: 6242049688701440162}
+  MinMaxMoveSpeed: {x: 7, y: 15}
+  MoveSmoothSpeed: 0.15
   CurrentSpeed: 7
   JumpSpeed: 15
   JumpDelay: 0.25
   JumpTimer: 0
   IsFacingRight: 1
   RotateSmoothSpeed: 0.15
-  GroundLength: 0.2
+  GroundLength: 0.1
   ColliderOffset: {x: 0, y: 0, z: 0}
   OnGround: 0
-  GroundLayerName: ground
   CustomGravity: 1
   FallMultiplier: 5
   Drag: 4
   Velocity: {x: 0, y: 0, z: 0}
+--- !u!114 &5767840874486911027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767840874486911024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cea1f527a1f255543af7c7ea2b5fe76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeavyAttack:
+    Name: heavy
+    LengthDuration: 0.4
+    AnimState: 2
+  LightAttack:
+    Name: light
+    LengthDuration: 0.2
+    AnimState: 1
+  MagicAttack:
+    Name: magic
+    LengthDuration: 0.4
+    AnimState: 3
+  Combos:
+  - Name: light+heavy
+    Inputs:
+    - Type: 1
+    - Type: 0
+    ComboAttack:
+      Name: light+heavy atk
+      LengthDuration: 1
+      AnimState: 100
+    DoComboAtk: 0
+  - Name: light+magic+light
+    Inputs:
+    - Type: 1
+    - Type: 2
+    - Type: 1
+    ComboAttack:
+      Name: light+magic+light atk
+      LengthDuration: 1
+      AnimState: 101
+    DoComboAtk: 0
+  - Name: light+magic+heavy+light
+    Inputs:
+    - Type: 1
+    - Type: 2
+    - Type: 0
+    - Type: 1
+    ComboAttack:
+      Name: light+magic+heavy+light atk
+      LengthDuration: 1
+      AnimState: 102
+    DoComboAtk: 0
+  ComboLeeway: 1
 --- !u!4 &5810466303409767336
 Transform:
   m_ObjectHideFlags: 0
@@ -2748,7 +2809,7 @@ Animator:
   m_GameObject: {fileID: 5767840874486911024}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 441e0be1d486caf4cba0c8dabe84846e, type: 3}
-  m_Controller: {fileID: 9100000, guid: dd74da8a71e27fe4ba5b0152f16b3615, type: 2}
+  m_Controller: {fileID: 9100000, guid: d3847a3eefda42548902a9a55201b766, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3166,7 +3227,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!1 &8016215303180837408

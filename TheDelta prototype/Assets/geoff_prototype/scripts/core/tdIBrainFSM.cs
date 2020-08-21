@@ -32,6 +32,7 @@ public abstract class tdIBrainFSM : MonoBehaviour {
 
     public void UpdateBrain() {
         _existing.OnStateUpdate();
+        print(_existing);
     }
 
     //still testing
