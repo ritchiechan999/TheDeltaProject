@@ -33,7 +33,7 @@ public static class tdPhysicsData {
 }
 
 //combo handler stuffs
-public enum AttackAnimState {
+public enum tdAttackAnimState {
     Unassigned,
     //main combos 1-99
     Light = 1,
@@ -46,7 +46,7 @@ public enum AttackAnimState {
     FourInputCombo,
 }
 
-public enum AttackType {
+public enum tdAttackType {
     Heavy = 0,
     Light = 1,
     Magic = 2,
@@ -54,35 +54,35 @@ public enum AttackType {
 }
 
 [Serializable]
-public class Attack {
+public class tdAttack {
     public string Name;
     //TODO auto fill up length duration
     public float LengthDuration;
-    public AttackAnimState AnimState;
+    public tdAttackAnimState AnimState;
 }
 
 [Serializable]
-public class ComboInput {
-    public AttackType Type;
-    public ComboInput(AttackType t) {
+public class tdComboInput {
+    public tdAttackType Type;
+    public tdComboInput(tdAttackType t) {
         Type = t;
     }
-    public bool IsSameAs(ComboInput comboInput) {
+    public bool IsSameAs(tdComboInput comboInput) {
         return (Type == comboInput.Type);
     }
 }
 
 [Serializable]
-public class Combo {
+public class tdCombo {
     public string Name;
-    public List<ComboInput> Inputs;
-    public Attack ComboAttack;
+    public List<tdComboInput> Inputs;
+    public tdAttack ComboAttack;
     public Action OnInputted;
     int _curInputIdx = 0;
     [HideInInspector]
     public bool DoComboAtk;
 
-    public bool ContinueCombo(ComboInput input) {
+    public bool ContinueCombo(tdComboInput input) {
         if (Inputs[_curInputIdx].IsSameAs(input)) {
             _curInputIdx++;
             //Debug.Log(_curInputIdx);
@@ -98,7 +98,7 @@ public class Combo {
         }
     }
 
-    public ComboInput CurrentComboInput() {
+    public tdComboInput CurrentComboInput() {
         if (_curInputIdx >= Inputs.Count)
             return null;
         return Inputs[_curInputIdx];

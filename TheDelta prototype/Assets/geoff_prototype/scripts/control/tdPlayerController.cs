@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class tdPlayerController : MonoBehaviour {
-    tdBaseEntity _tdBaseEntity;
+    tdEntity _tdBaseEntity;
 
     [Header("Key bindings")]
     public KeyCode LightKey = KeyCode.Alpha1;
     public KeyCode HeavyKey = KeyCode.Alpha2;
     public KeyCode MagicKey = KeyCode.Alpha3;
 
-    ComboInput _currentComboInput = null;
+    tdComboInput _currentComboInput = null;
 
     void Start() {
-        _tdBaseEntity = this.GetComponent<tdBaseEntity>();
+        _tdBaseEntity = this.GetComponent<tdEntity>();
     }
 
     void Update() {
@@ -29,15 +29,15 @@ public class tdPlayerController : MonoBehaviour {
         _currentComboInput = null;
 
         if (Input.GetKeyUp(HeavyKey))
-            _currentComboInput = new ComboInput(AttackType.Heavy);
+            _currentComboInput = new tdComboInput(tdAttackType.Heavy);
         if (Input.GetKeyUp(LightKey))
-            _currentComboInput = new ComboInput(AttackType.Light);
+            _currentComboInput = new tdComboInput(tdAttackType.Light);
         if (Input.GetKeyUp(MagicKey))
-            _currentComboInput = new ComboInput(AttackType.Magic);
+            _currentComboInput = new tdComboInput(tdAttackType.Magic);
 
     }
 
-    public ComboInput GetCurrentInput() {
+    public tdComboInput GetCurrentInput() {
         return _currentComboInput;
     }
 }

@@ -10,10 +10,13 @@ public class tdEntityStateChanger : StateMachineBehaviour
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        string csString = $"td{OnEnterState}State";
-        Type cs = Type.GetType(csString);
-        tdIBrainFSM anim = animator.GetComponent<tdIBrainFSM>();
-        anim.ChangeState(cs, new object[] { });
+        if (OnEnterState != tdEntityState.Unassigned) {
+            string csString = $"td{OnEnterState}State";
+            Type cs = Type.GetType(csString);
+            tdIBrainFSM anim = animator.GetComponent<tdIBrainFSM>();
+            anim.ChangeState(cs, new object[] { });
+        }
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,10 +27,12 @@ public class tdEntityStateChanger : StateMachineBehaviour
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        string csString = $"td{OnExitState}State";
-        Type cs = Type.GetType(csString);
-        tdIBrainFSM anim = animator.GetComponent<tdIBrainFSM>();
-        anim.ChangeState(cs, new object[] { });
+        if (OnExitState != tdEntityState.Unassigned) {
+            string csString = $"td{OnExitState}State";
+            Type cs = Type.GetType(csString);
+            tdIBrainFSM anim = animator.GetComponent<tdIBrainFSM>();
+            anim.ChangeState(cs, new object[] { });
+        }
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class tdBaseEntity : tdIBrainFSM {
+public class tdEntity : tdIBrainFSM {
     [Header("Entity States")]
     public tdEntityState[] EntityStates;
     public tdEntityState FirstEntityState;
@@ -43,6 +43,9 @@ public class tdBaseEntity : tdIBrainFSM {
 
     // Start is called before the first frame update
     void Start() {
+        RgdBdy = this.GetComponent<Rigidbody>();
+        AnimCtrl = this.GetComponent<Animator>();
+
         InitializeFSM();
 
         _lastRotation = new Quaternion(0, 0.7f, 0, 0.7f);

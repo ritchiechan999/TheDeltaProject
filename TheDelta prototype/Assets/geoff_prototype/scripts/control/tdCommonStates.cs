@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class tdNavigationState : tdIBaseState<tdBaseEntity> {
-    public tdNavigationState(tdBaseEntity brain, int initConstruct) : base(brain) { }
+public class tdNavigationState : tdIBaseState<tdEntity> {
+    public tdNavigationState(tdEntity brain, int initConstruct) : base(brain) { }
 
     public override void OnReceiveMessage(tdMessageType msgType, object[] args) {
         switch (msgType) {
@@ -81,13 +81,13 @@ public class tdNavigationState : tdIBaseState<tdBaseEntity> {
     }
 }
 
-public class tdAttackState : tdIBaseState<tdBaseEntity> {
-    public tdAttackState(tdBaseEntity brain, int initConstruct) : base(brain) { }
+public class tdAttackState : tdIBaseState<tdEntity> {
+    public tdAttackState(tdEntity brain, int initConstruct) : base(brain) { }
     public override void OnReceiveMessage(tdMessageType msgType, object[] args) {
         switch (msgType) {
             //TODO continuous combo
             case tdMessageType.Attack:
-                Attack currentAtk = (Attack)args[0];
+                tdAttack currentAtk = (tdAttack)args[0];
                 Entity.AnimCtrl.SetInteger("anim_state", (int)currentAtk.AnimState);
                 break;
             case tdMessageType.Flinch:
@@ -97,7 +97,7 @@ public class tdAttackState : tdIBaseState<tdBaseEntity> {
 
     public override void OnStateEnter(object[] args) {
         if (args != null) {
-            Attack currentAtk = (Attack)args[0];
+            tdAttack currentAtk = (tdAttack)args[0];
             Entity.AnimCtrl.SetInteger("anim_state", (int)currentAtk.AnimState);
         }
     }

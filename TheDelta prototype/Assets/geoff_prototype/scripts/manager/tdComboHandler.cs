@@ -7,17 +7,17 @@ public class tdComboHandler : MonoBehaviour {
     [Header("Components and stuff")]
     Animator _anim;
     tdPlayerController _playerController;
-    tdBaseEntity _entity;
+    tdEntity _entity;
 
     [Header("Attacks")]
-    public Attack HeavyAttack;
-    public Attack LightAttack;
-    public Attack MagicAttack;
-    public List<Combo> Combos;
+    public tdAttack HeavyAttack;
+    public tdAttack LightAttack;
+    public tdAttack MagicAttack;
+    public List<tdCombo> Combos;
     [Space]
     public float ComboLeeway = 1f;
-    Attack _currentAttack = null;
-    ComboInput _lastInput = null;
+    tdAttack _currentAttack = null;
+    tdComboInput _lastInput = null;
     List<int> _currentCombos = new List<int>();
 
     float _attackTimer = 0;
@@ -28,14 +28,14 @@ public class tdComboHandler : MonoBehaviour {
     void Start() {
         _anim = this.GetComponent<Animator>();
         _playerController = this.GetComponent<tdPlayerController>();
-        _entity = this.GetComponent<tdBaseEntity>();
+        _entity = this.GetComponent<tdEntity>();
 
         PrimeCombos();
     }
 
     void PrimeCombos() {
         for (int i = 0; i < Combos.Count; i++) {
-            Combo c = Combos[i];
+            tdCombo c = Combos[i];
             c.OnInputted = () => {
                 _skip = true;
                 FinalAttack(c.ComboAttack);
@@ -73,7 +73,7 @@ public class tdComboHandler : MonoBehaviour {
             _leeway = 0;
 
         //inputs.. TODO separate the one on player and AI
-        ComboInput input = null;
+        tdComboInput input = null;
         if(_playerController != null) {
             input = _playerController.GetCurrentInput();
         }
@@ -86,7 +86,7 @@ public class tdComboHandler : MonoBehaviour {
         //continue combo reference
         List<int> removeCombo = new List<int>();
         for (int i = 0; i < _currentCombos.Count; i++) {
-            Combo c = Combos[_currentCombos[i]];
+            tdCombo c = Combos[_currentCombos[i]];
             if (c.ContinueCombo(input) && !c.DoComboAtk) {
                 //TODO send message to brain
                 ChainAttack(GetAttackFromType(_lastInput.Type));
@@ -129,14 +129,14 @@ public class tdComboHandler : MonoBehaviour {
     void ResetCombos() {
         _leeway = 0;
         for (int i = 0; i < _currentCombos.Count; i++) {
-            Combo c = Combos[_currentCombos[i]];
+            tdCombo c = Combos[_currentCombos[i]];
             c.ResetCombo();
         }
         _currentCombos.Clear();
         _anim.SetInteger("anim_state", 0);
     }
 
-    void FinalAttack(Attack atk) {
+    void FinalAttack(tdAttack atk) {
         _currentAttack = atk;
         _attackTimer = atk.LengthDuration;
         Debug.Log(_currentAttack.Name + " ");// + _currentAttack.LengthDuration);
@@ -145,19 +145,19 @@ public class tdComboHandler : MonoBehaviour {
     }
 
     //do something regards to this haha
-    void ChainAttack(Attack chainAtk) {
+    void ChainAttack(tdAttack chainAtk) {
         Debug.Log(chainAtk.Name);
         //_anim.SetInteger("anim_state", (int)chainAtk.AnimState);
         _entity.SendMessageToBrain(tdMessageType.Attack, chainAtk);
     }
 
-    Attack GetAttackFromType(AttackType type) {
+    tdAttack GetAttackFromType(tdAttackType type) {
         switch (type) {
-            case AttackType.Heavy:
+            case tdAttackType.Heavy:
                 return HeavyAttack;
-            case AttackType.Light:
+            case tdAttackType.Light:
                 return LightAttack;
-            case AttackType.Magic:
+            case tdAttackType.Magic:
                 return MagicAttack;
             default:
                 return null;
