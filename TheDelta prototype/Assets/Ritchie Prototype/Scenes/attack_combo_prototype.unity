@@ -6639,17 +6639,17 @@ PrefabInstance:
     - target: {fileID: 7387894268292902386, guid: fe4f3ba01d318a843bde00f04261addc,
         type: 3}
       propertyPath: AnimNames.Array.data[0].NormalAttackName
-      value: combo1
+      value: lightAttack
       objectReference: {fileID: 0}
     - target: {fileID: 7387894268292902386, guid: fe4f3ba01d318a843bde00f04261addc,
         type: 3}
       propertyPath: AnimNames.Array.data[1].NormalAttackName
-      value: combo2
+      value: lightAttack
       objectReference: {fileID: 0}
     - target: {fileID: 7387894268292902386, guid: fe4f3ba01d318a843bde00f04261addc,
         type: 3}
       propertyPath: AnimNames.Array.data[2].NormalAttackName
-      value: combo3
+      value: lightAttack
       objectReference: {fileID: 0}
     - target: {fileID: 7387894268292902386, guid: fe4f3ba01d318a843bde00f04261addc,
         type: 3}
@@ -6665,6 +6665,16 @@ PrefabInstance:
         type: 3}
       propertyPath: AnimNames.Array.data[2].branchAttackName.Array.data[0]
       value: combo3branch1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387894268292902386, guid: fe4f3ba01d318a843bde00f04261addc,
+        type: 3}
+      propertyPath: tupleTest
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387894268292902386, guid: fe4f3ba01d318a843bde00f04261addc,
+        type: 3}
+      propertyPath: ComboList.Array.data[0]
+      value: lightAttack
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe4f3ba01d318a843bde00f04261addc, type: 3}
