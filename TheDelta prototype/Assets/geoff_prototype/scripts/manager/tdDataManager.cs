@@ -19,6 +19,8 @@ public class tdDataManager : MonoBehaviour
     [Header("Effects")]
     public AttackEffects[] AtkFx;
 
+    public SpawnSkillScriptableObject testSpawn;
+    public int teststring;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class tdDataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //testSpawn = Resources.Load("SkillEff/Combo" + teststring) as SpawnSkillScriptableObject;
         
     }
 
@@ -48,6 +51,27 @@ public class tdDataManager : MonoBehaviour
         fx.transform.position = entity.transform.position + posOffset;
         fx.transform.rotation = entity.transform.rotation * rotOffset;
     }
+    public void AttackFx2(int skillNumber, tdEntity entity)
+    {
+        
+        teststring = skillNumber;
+        testSpawn = Resources.Load("SkillEff/Combo" + teststring) as SpawnSkillScriptableObject;
+        GameObject fx = Instantiate(testSpawn.SkillPrefabs.gameObject);
+        Vector3 posOffset;
+        Quaternion rotOffset;
+        if (entity.IsFacingRight)
+        {
+            posOffset = testSpawn.PosRightOffset;
+            rotOffset = Quaternion.Euler(testSpawn.RotRightOffset);
+        }
+        else
+        {
+            posOffset = testSpawn.PosLeftOffset;
+            rotOffset = Quaternion.Euler(testSpawn.RotLeftOffset);
+        }
+        fx.transform.position = entity.transform.position + posOffset;
+        fx.transform.rotation = entity.transform.rotation * rotOffset;
+    }
 }
 
 //come up with a better name
@@ -56,3 +80,4 @@ public enum tdFX {
     Combo2,
     Combo3,
 }
+

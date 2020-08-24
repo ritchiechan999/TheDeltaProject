@@ -20,6 +20,10 @@ public class tdAnimationEventHandler : MonoBehaviour
     public void OnEffectsEvent(tdFX fx) {
         tdDataManager.Instance.AttackFx(fx, _entity);
     }
+    public void onEffectsEvent2(int skillNumber)
+    {
+        tdDataManager.Instance.AttackFx2(skillNumber, _entity);
+    }
 
     //public void AttackFx(int comboNb) {
     //    GameObject fx = Instantiate(AtkFx[comboNb].Prefab);
