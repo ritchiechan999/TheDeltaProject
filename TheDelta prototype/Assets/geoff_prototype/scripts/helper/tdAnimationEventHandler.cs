@@ -22,7 +22,7 @@ public class tdAnimationEventHandler : MonoBehaviour
     }
     public void onEffectsEvent2(int skillNumber)
     {
-        tdDataManager.Instance.AttackFx2(skillNumber, _entity);
+        //tdDataManager.Instance.AttackFx2(skillNumber, _entity);
     }
 
     //public void AttackFx(int comboNb) {

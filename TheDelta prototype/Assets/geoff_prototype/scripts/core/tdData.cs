@@ -110,17 +110,3 @@ public class tdCombo {
     }
 }
 
-//where should we put this?
-[CreateAssetMenu(fileName = "Resources", menuName = "Skills", order = 1)]
-public class SpawnSkillScriptableObject : ScriptableObject
-{
-    public string SkillName;
-    public GameObject SkillPrefabs;
-
-    public Vector3 PosRightOffset;
-    public Vector3 PosLeftOffset;
-    public Vector3 RotRightOffset;
-    public Vector3 RotLeftOffset;
-
-    //skill naming, 
-}

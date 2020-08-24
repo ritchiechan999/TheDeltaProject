@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6644f4c42770fe54eb0db8be5d13c504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnEnterState: 0
+  OnEnterState: 2
   OnExitState: 1
 --- !u!114 &-4948306455496543870
 MonoBehaviour:
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6644f4c42770fe54eb0db8be5d13c504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnEnterState: 0
+  OnEnterState: 2
   OnExitState: 1
 --- !u!1101 &-2334496255433972080
 AnimatorStateTransition:
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6644f4c42770fe54eb0db8be5d13c504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnEnterState: 0
+  OnEnterState: 2
   OnExitState: 1
 --- !u!1101 &1428318142111980607
 AnimatorStateTransition:
@@ -840,7 +840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6644f4c42770fe54eb0db8be5d13c504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnEnterState: 0
+  OnEnterState: 2
   OnExitState: 1
 --- !u!1101 &6092128240672475203
 AnimatorStateTransition:
@@ -929,5 +929,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6644f4c42770fe54eb0db8be5d13c504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnEnterState: 0
+  OnEnterState: 2
   OnExitState: 1

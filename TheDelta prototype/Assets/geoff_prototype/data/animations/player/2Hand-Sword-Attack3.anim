@@ -108160,9 +108160,9 @@ AnimationClip:
   m_HasMotionFloatCurves: 1
   m_Events:
   - time: 0.5
-    functionName: onEffectsEvent2
+    functionName: OnEffectsEvent
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 1
+    intParameter: 0
     messageOptions: 0

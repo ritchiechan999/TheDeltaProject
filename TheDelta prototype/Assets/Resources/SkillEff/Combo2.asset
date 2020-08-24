@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Combo2
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnSkillScriptableObject
+  m_Script: {fileID: 11500000, guid: 89000b971606dc0409b9d1e09aeb984a, type: 3}
+  m_Name: combo2
+  m_EditorClassIdentifier: 
   SkillName: 
-  SkillPrefabs: {fileID: 4550461207172472076, guid: 9485b10fef57b034da3e9dd8b1acd467,
+  Type: 1
+  SkillPrefab: {fileID: 4888443075479945895, guid: 150159bd765f9944ead3dde7cc7e06ad,
     type: 3}
-  PosRightOffset: {x: 0, y: 0, z: 0}
-  PosLeftOffset: {x: 0, y: 0, z: 0}
+  PosRightOffset: {x: -3, y: 0, z: 0}
+  PosLeftOffset: {x: 3, y: 0, z: 0}
   RotRightOffset: {x: 0, y: 0, z: 0}
   RotLeftOffset: {x: 0, y: 0, z: 0}

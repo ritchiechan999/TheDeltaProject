@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89000b971606dc0409b9d1e09aeb984a, type: 3}
-  m_Name: combo1
+  m_Name: combo3
   m_EditorClassIdentifier: 
   SkillName: 
-  Type: 0
-  SkillPrefab: {fileID: 2922627408306166871, guid: 7ce66b75d6f36eb40b136ff18ff1ec21,
+  Type: 2
+  SkillPrefab: {fileID: 4550461207172472076, guid: 9485b10fef57b034da3e9dd8b1acd467,
     type: 3}
-  PosRightOffset: {x: 0, y: 0.7, z: 0}
-  PosLeftOffset: {x: 0, y: 0.7, z: 0}
-  RotRightOffset: {x: 0, y: -90, z: 0}
-  RotLeftOffset: {x: 0, y: 90, z: 0}
+  PosRightOffset: {x: 1, y: 0, z: 0}
+  PosLeftOffset: {x: -1, y: 0, z: 0}
+  RotRightOffset: {x: 0, y: 0, z: 0}
+  RotLeftOffset: {x: 0, y: 0, z: 0}

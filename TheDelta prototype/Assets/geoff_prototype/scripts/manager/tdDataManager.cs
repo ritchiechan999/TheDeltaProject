@@ -7,20 +7,27 @@ public class tdDataManager : MonoBehaviour
     public static tdDataManager Instance { private set; get; }
     private void Awake() {
         Instance = this;
+
+        tdEffects[] fxs = Resources.LoadAll<tdEffects>(SkillEffectsFolderPath);
+        foreach (var fx in fxs) {
+            _tdEffects[fx.Type] = fx;
+            Debug.Log(fx.name);
+        }
     }
 
     private void OnDestroy() {
         Instance = null;
     }
     //on actual project
-    //Dictionary<tdFX, GameObject> _tdEffects = new Dictionary<tdFX, GameObject>();
+    Dictionary<tdFX, tdEffects> _tdEffects = new Dictionary<tdFX, tdEffects>();
 
     //placeholder only
     [Header("Effects")]
     public AttackEffects[] AtkFx;
 
-    public SpawnSkillScriptableObject testSpawn;
+   // public SpawnSkillScriptableObject testSpawn;
     public int teststring;
+    public string SkillEffectsFolderPath = "SkillEff";
 
     // Start is called before the first frame update
     void Start()
@@ -38,19 +45,25 @@ public class tdDataManager : MonoBehaviour
     //TODO change these use dictionary for future use
     public void AttackFx(tdFX effect, tdEntity entity) {
         int comboNb = (int)effect;
-        GameObject fx = Instantiate(AtkFx[comboNb].Prefab);
-        Vector3 posOffset;
-        Quaternion rotOffset;
-        if (entity.IsFacingRight) {
-            posOffset = AtkFx[comboNb].PosRightOffset;
-            rotOffset = Quaternion.Euler(AtkFx[comboNb].RotRightOffset);
-        } else {
-            posOffset = AtkFx[comboNb].PosLeftOffset;
-            rotOffset = Quaternion.Euler(AtkFx[comboNb].RotLeftOffset);
+        //GameObject fx = Instantiate(AtkFx[comboNb].Prefab);
+        GameObject fx = null;
+        if (_tdEffects.TryGetValue(effect, out tdEffects eff)) {
+            fx = Instantiate(eff.SkillPrefab);
+
+            Vector3 posOffset;
+            Quaternion rotOffset;
+            if (entity.IsFacingRight) {
+                posOffset = AtkFx[comboNb].PosRightOffset;
+                rotOffset = Quaternion.Euler(AtkFx[comboNb].RotRightOffset);
+            } else {
+                posOffset = AtkFx[comboNb].PosLeftOffset;
+                rotOffset = Quaternion.Euler(AtkFx[comboNb].RotLeftOffset);
+            }
+            fx.transform.position = entity.transform.position + posOffset;
+            fx.transform.rotation = entity.transform.rotation * rotOffset;
         }
-        fx.transform.position = entity.transform.position + posOffset;
-        fx.transform.rotation = entity.transform.rotation * rotOffset;
     }
+    /*
     public void AttackFx2(int skillNumber, tdEntity entity)
     {
         
@@ -71,7 +84,8 @@ public class tdDataManager : MonoBehaviour
         }
         fx.transform.position = entity.transform.position + posOffset;
         fx.transform.rotation = entity.transform.rotation * rotOffset;
-    }
+    }*/
+
 }
 
 //come up with a better name
