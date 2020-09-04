@@ -6,6 +6,7 @@ public abstract class tdIBrainFSM : MonoBehaviour {
     Dictionary<Type, tdIState> _states = new Dictionary<Type, tdIState>();
     Type _currentState;
     tdIState _existing;
+    public bool BrainEnabled = true;
 
     public void RegisterState(tdIState state) {
         _states[state.GetType()] = state;
@@ -31,6 +32,8 @@ public abstract class tdIBrainFSM : MonoBehaviour {
     }
 
     public void UpdateBrain() {
+        if (!BrainEnabled)
+            return;
         _existing.OnStateUpdate();
         print(_existing);
     }

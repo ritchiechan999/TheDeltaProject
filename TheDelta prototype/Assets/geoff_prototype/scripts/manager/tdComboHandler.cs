@@ -23,13 +23,14 @@ public class tdComboHandler : MonoBehaviour {
     float _attackTimer = 0;
     float _leeway = 0;
     bool _skip = false;
+    //
+    public bool IsOnCombo;
 
     // Start is called before the first frame update
     void Start() {
         _anim = this.GetComponent<Animator>();
         _playerController = this.GetComponent<tdPlayerController>();
         _entity = this.GetComponent<tdEntity>();
-
         PrimeCombos();
     }
 
@@ -90,7 +91,7 @@ public class tdComboHandler : MonoBehaviour {
             if (c.ContinueCombo(input) && !c.DoComboAtk) {
                 //TODO send message to brain
                 ChainAttack(GetAttackFromType(_lastInput.Type));
-                _leeway = 0;
+                _leeway = 0;                
             } else {
                 removeCombo.Add(i);
             }
@@ -109,7 +110,7 @@ public class tdComboHandler : MonoBehaviour {
                 //TODO send message to entity brain
                 ChainAttack(GetAttackFromType(_lastInput.Type));
                 _currentCombos.Add(i);
-                _leeway = 0;
+                _leeway = 0;         
             }
         }
 
@@ -134,21 +135,27 @@ public class tdComboHandler : MonoBehaviour {
         }
         _currentCombos.Clear();
         _anim.SetInteger("anim_state", 0);
+        IsOnComboReset();
     }
 
     void FinalAttack(tdAttack atk) {
+        IsOnCombo = true;
         _currentAttack = atk;
         _attackTimer = atk.LengthDuration;
         Debug.Log(_currentAttack.Name + " ");// + _currentAttack.LengthDuration);
-        //_anim.SetInteger("anim_state", (int)atk.AnimState);
         _entity.SendMessageToBrain(tdMessageType.Attack, atk);
+        Invoke(nameof(IsOnComboReset), _attackTimer);
     }
 
     //do something regards to this haha
     void ChainAttack(tdAttack chainAtk) {
+        IsOnCombo = true;
         Debug.Log(chainAtk.Name);
-        //_anim.SetInteger("anim_state", (int)chainAtk.AnimState);
         _entity.SendMessageToBrain(tdMessageType.Attack, chainAtk);
+    }
+
+    void IsOnComboReset() {
+        IsOnCombo = false;
     }
 
     tdAttack GetAttackFromType(tdAttackType type) {

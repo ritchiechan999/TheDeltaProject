@@ -11,7 +11,7 @@ public class tdDataManager : MonoBehaviour
         tdEffects[] fxs = Resources.LoadAll<tdEffects>(SkillEffectsFolderPath);
         foreach (var fx in fxs) {
             _tdEffects[fx.Type] = fx;
-            Debug.Log(fx.name);
+            //Debug.Log(fx.name);
         }
     }
 

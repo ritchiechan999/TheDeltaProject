@@ -1498,6 +1498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791e84eb88ee1f343b0421470a3af4cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BrainEnabled: 1
   EntityStates: 0100000002000000
   FirstEntityState: 1
   RgdBdy: {fileID: 0}
@@ -1587,7 +1588,8 @@ MonoBehaviour:
       LengthDuration: 1
       AnimState: 102
     DoComboAtk: 0
-  ComboLeeway: 1
+  ComboLeeway: 0.75
+  IsOnCombo: 0
 --- !u!114 &8145785446832891201
 MonoBehaviour:
   m_ObjectHideFlags: 0
