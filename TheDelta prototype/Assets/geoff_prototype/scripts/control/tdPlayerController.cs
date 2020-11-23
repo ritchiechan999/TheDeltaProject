@@ -9,7 +9,7 @@ public class tdPlayerController : MonoBehaviour {
     public KeyCode LightKey = KeyCode.Alpha1;
     public KeyCode HeavyKey = KeyCode.Alpha2;
     public KeyCode MagicKey = KeyCode.Alpha3;
-
+    public KeyCode LeftMouseClick = KeyCode.Mouse0;
     tdComboInput _currentComboInput = null;
 
     void Start() {
@@ -35,6 +35,12 @@ public class tdPlayerController : MonoBehaviour {
         if (Input.GetKeyUp(MagicKey))
             _currentComboInput = new tdComboInput(tdAttackType.Magic);
 
+        //temp left mouse click
+        if(Input.GetKeyDown(LeftMouseClick))
+        {
+            _currentComboInput = new tdComboInput(tdAttackType.Light);
+        }
+            
     }
 
     public tdComboInput GetCurrentInput() {

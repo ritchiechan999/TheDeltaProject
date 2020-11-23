@@ -15,9 +15,3 @@ public class tdEffects : ScriptableObject
     public Vector3 RotLeftOffset;
 }
 
-////where should we put this?
-//public class SpawnSkillScriptableObject : ScriptableObject {
-
-
-//    //skill naming, 
-//}

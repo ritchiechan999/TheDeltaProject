@@ -26,6 +26,9 @@ public class tdComboHandler : MonoBehaviour {
     //
     public bool IsOnCombo;
 
+
+    //temp mouse logic
+    int numberOfClicks;
     // Start is called before the first frame update
     void Start() {
         _anim = this.GetComponent<Animator>();
@@ -48,8 +51,19 @@ public class tdComboHandler : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         ComboLogic();
+        MouseComboLogic();
     }
 
+    void MouseComboLogic()
+    {
+        if(_currentCombos.Count > 0)
+        {
+            Debug.Log(_currentAttack);
+            
+
+           
+        }
+    }
     void ComboLogic() {
         //when final atk is happenning
         if (_currentAttack != null) {
@@ -77,6 +91,7 @@ public class tdComboHandler : MonoBehaviour {
         tdComboInput input = null;
         if(_playerController != null) {
             input = _playerController.GetCurrentInput();
+            Debug.Log(input);
         }
 
         if (input == null)
@@ -150,7 +165,7 @@ public class tdComboHandler : MonoBehaviour {
     //do something regards to this haha
     void ChainAttack(tdAttack chainAtk) {
         IsOnCombo = true;
-        Debug.Log(chainAtk.Name);
+        //Debug.Log(chainAtk.Name);
         _entity.SendMessageToBrain(tdMessageType.Attack, chainAtk);
     }
 
