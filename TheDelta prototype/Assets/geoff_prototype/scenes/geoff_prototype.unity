@@ -234,7 +234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &81868245
 Animator:
   serializedVersion: 3
@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796156432eb3d054190c38339a499e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 81868248}
+  Target: {fileID: 2011261599}
   Offset: {x: 0, y: 4, z: -10}
 --- !u!1 &943421289
 GameObject:
@@ -1449,6 +1449,12 @@ Transform:
   m_Father: {fileID: 1990467554}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2011261599 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6823280924079619671, guid: f16b410751b079b40a0da62e77c9e58a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4098571114947894388}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2019964266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,7 +1617,7 @@ PrefabInstance:
     - target: {fileID: 7559978076472347716, guid: f16b410751b079b40a0da62e77c9e58a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7559978076472347719, guid: f16b410751b079b40a0da62e77c9e58a,
         type: 3}

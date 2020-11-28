@@ -28,7 +28,10 @@ public class tdComboHandler : MonoBehaviour {
 
 
     //temp mouse logic
-    int numberOfClicks;
+    public static int numberOfClicks;
+    public int ShowNumberOfClicks;
+    public float _attackTimerMouse;
+    public static bool timerSwitch;
     // Start is called before the first frame update
     void Start() {
         _anim = this.GetComponent<Animator>();
@@ -50,19 +53,36 @@ public class tdComboHandler : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        ComboLogic();
+        //ComboLogic();
         MouseComboLogic();
+        Debug.Log(_attackTimerMouse);
     }
 
     void MouseComboLogic()
     {
-        if(_currentCombos.Count > 0)
+        if (timerSwitch == true)
         {
-            Debug.Log(_currentAttack);
-            
-
-           
+            _attackTimerMouse += Time.deltaTime;
+            if (_attackTimerMouse > 0.5f)
+            {
+                _attackTimerMouse = 0;
+                if(_attackTimerMouse <= 0)
+                {
+                    numberOfClicks = 0;
+                }
+            }
         }
+        else
+        {
+            _attackTimerMouse = 0;
+        }
+        ShowNumberOfClicks = numberOfClicks;
+        if(numberOfClicks > 3)
+        {
+            numberOfClicks = 1;
+        }
+
+        _anim.SetInteger("anim_state", numberOfClicks);
     }
     void ComboLogic() {
         //when final atk is happenning

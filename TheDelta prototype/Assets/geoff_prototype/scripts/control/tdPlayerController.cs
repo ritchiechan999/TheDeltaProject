@@ -38,7 +38,16 @@ public class tdPlayerController : MonoBehaviour {
         //temp left mouse click
         if(Input.GetKeyDown(LeftMouseClick))
         {
+            tdComboHandler.timerSwitch = false;
+
+            //tdComboHandler._attackTimerMouse += Time.deltaTime;
+            tdComboHandler.numberOfClicks++;
             _currentComboInput = new tdComboInput(tdAttackType.Light);
+        }
+        
+        if(Input.GetKeyUp(LeftMouseClick))
+        {
+            tdComboHandler.timerSwitch = true;
         }
             
     }
