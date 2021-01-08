@@ -39,8 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2b5f4e1422e304fb7359b1806539a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationTrigger: Atk2
   animStateInt: 2
+  inputKey: 50
 --- !u!1101 &-3369995526611197861
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2b5f4e1422e304fb7359b1806539a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationTrigger: Atk1
   animStateInt: 1
+  inputKey: 49
 --- !u!1101 &-1802964268838321000
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -259,7 +259,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

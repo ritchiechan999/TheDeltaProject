@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ComboBehaviour : StateMachineBehaviour
 {
-    public string animationTrigger = "";
-    public int animStateInt = 0;
+    public tdComboAttack animStateInt = tdComboAttack.Default;
+    public KeyCode inputKey;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,10 +18,10 @@ public class ComboBehaviour : StateMachineBehaviour
     {
         if (testComboManager.instance.inputReceived)
         {
-            if (animationTrigger != string.Empty || animStateInt != 0)
+            if (animStateInt != tdComboAttack.Default 
+                && testComboManager.instance.currentInputKey == inputKey)
             {
-                //animator.SetTrigger(animationTrigger);
-                animator.SetInteger("animState", animStateInt);
+                animator.SetInteger("animState", (int)animStateInt);
                 testComboManager.instance.InputManager();
                 testComboManager.instance.inputReceived = false;
             }
