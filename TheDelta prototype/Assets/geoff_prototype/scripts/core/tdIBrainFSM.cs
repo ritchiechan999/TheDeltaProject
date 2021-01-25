@@ -34,6 +34,12 @@ public abstract class tdIBrainFSM : MonoBehaviour {
     public void UpdateBrain() {
         if (!BrainEnabled)
             return;
+
+        if(_existing == null)
+        {
+            throw new Exception(string.Format("Please used a correct state for entity"));
+        }        
+        
         _existing.OnStateUpdate();
         print(_existing);
     }

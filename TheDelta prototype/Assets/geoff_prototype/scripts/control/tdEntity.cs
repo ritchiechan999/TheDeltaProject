@@ -42,7 +42,7 @@ public class tdEntity : tdIBrainFSM {
     public Vector3 Velocity;
 
     // Start is called before the first frame update
-    void Start() {
+    protected virtual void Start() {
         RgdBdy = this.GetComponent<Rigidbody>();
         AnimCtrl = this.GetComponent<Animator>();
 
@@ -79,7 +79,7 @@ public class tdEntity : tdIBrainFSM {
     }
 
     // Update is called once per frame
-    void Update() {
+    protected virtual void Update() {
         UpdateBrain();
     }
 
